@@ -1,0 +1,15 @@
+<div class="text-center mt-3 mb-3">
+	<form>
+		<input #buscaDescricao
+			type="search"
+			placeholder="Pesquisar..."
+			class="rounded"
+			autofocus
+			(input)="debounce.next(buscaDescricao.value)"
+		/>
+	</form>
+</div>
+
+<!-- Seção que carrega o componente ap-fotos-lista -->
+<ap-fotos [fotos]="fotos | filtrarPorDescricao: filtro"></ap-fotos>
+<ap-load-button (click)="carregar()" [temMais]="temMais"></ap-load-button>
