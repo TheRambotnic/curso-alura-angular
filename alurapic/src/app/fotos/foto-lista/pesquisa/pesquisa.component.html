@@ -1,0 +1,13 @@
+<div class="text-center mt-3 mb-3">
+	<form>
+		<i aria-hidden="true" class="fa fa-search mr-1"></i>
+		<input #buscaDescricao
+			type="search"
+			placeholder="Pesquisar..."
+			class="rounded"
+			autofocus
+			(input)="debounce.next(buscaDescricao.value)"
+			[value]="valor"
+		/>
+	</form>
+</div>

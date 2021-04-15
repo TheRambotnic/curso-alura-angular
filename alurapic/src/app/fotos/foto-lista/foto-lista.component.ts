@@ -1,7 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 
 import { Foto } from '../foto/foto.interface';
 import { FotoService } from '../foto/foto.service';
@@ -11,10 +9,9 @@ import { FotoService } from '../foto/foto.service';
 	templateUrl: './foto-lista.component.html',
 	styleUrls: ['./foto-lista.component.css']
 })
-export class FotoListaComponent implements OnInit, OnDestroy {
+export class FotoListaComponent implements OnInit {
 	fotos: Foto[] = [];
 	filtro: string = "";
-	debounce: Subject<string> = new Subject<string>(); // permite pausar execução de um filtro por um determinado tempo
 	temMais: boolean = true;
 	paginaAtual: number = 1;
 	username: string = "";
@@ -29,13 +26,6 @@ export class FotoListaComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.username = this.activatedRoute.snapshot.params.userName;
 		this.fotos = this.activatedRoute.snapshot.data["fotos"];
-		this.debounce
-			.pipe(debounceTime(300)) // esperar 0.3 segundos para aplicar o filtro em fotos
-			.subscribe(fil => this.filtro = fil);
-	}
-
-	ngOnDestroy(): void {
-		this.debounce.unsubscribe(); // desalocar espaço na memória ao sair do componente
 	}
 
 	carregar() {
@@ -43,6 +33,7 @@ export class FotoListaComponent implements OnInit, OnDestroy {
 		// por isso, efetuar um pré-incremento na página
 		this.fotoServ.listarDeUsuarioPaginada(this.username, ++this.paginaAtual)
 			.subscribe(fotos => {
+				this.filtro = "";
 				this.fotos = this.fotos.concat(fotos);
 
 				if (fotos.length === 0)

@@ -1,14 +1,4 @@
-<div class="text-center mt-3 mb-3">
-	<form>
-		<input #buscaDescricao
-			type="search"
-			placeholder="Pesquisar..."
-			class="rounded"
-			autofocus
-			(input)="debounce.next(buscaDescricao.value)"
-		/>
-	</form>
-</div>
+<ap-pesquisa (naDigitacao)="filtro = $event" [valor]="filtro"></ap-pesquisa>
 
 <!-- Seção que carrega o componente ap-fotos-lista -->
 <ap-fotos [fotos]="fotos | filtrarPorDescricao: filtro"></ap-fotos>
