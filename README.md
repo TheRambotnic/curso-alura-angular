@@ -1,0 +1,1 @@
+If the api is not working, run `npm un sqlite3` > `npm cache clean` > `npm i sqlite3` 
