@@ -5,7 +5,7 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from "@angular/
 	selector: "[apEscurecerHover]"
 })
 export class EscurecerHoverDirective {
-	@Input() brightness = "70%";
+	@Input() brightness = "80%";
 
 	constructor(
 		private elem: ElementRef, // ElementRef - retorna referência de elemento do DOM

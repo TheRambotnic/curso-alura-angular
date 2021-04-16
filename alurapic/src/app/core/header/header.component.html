@@ -1,0 +1,21 @@
+<header class="fixed-top">
+	<nav class="navbar navbar-light bg-white">
+		<a class="navbar-brand">ALURAPIC</a>
+		
+		<!--
+			async pipe - conseguimos capturar a emissão do Observable
+			diretamente no template	sem necessidade do .subscribe()
+		-->
+		<div *ngIf="(user$ | async) as user; else fazerLogin">
+			<i class="fa fa-user-circle"></i>
+			<a class="ml-2">{{ user.name }}</a>
+			<a (click)="logout()" class="ml-1">(LOGOUT)</a>
+		</div>
+
+		<ng-template #fazerLogin>
+			<span class="navbar-left">
+				<a [routerLink]="['']">FAZER LOGIN</a>
+			</span>
+		</ng-template>
+	</nav>
+</header>
