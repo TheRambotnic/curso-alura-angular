@@ -10,6 +10,7 @@ import { UserService } from "../user/user.service";
 	templateUrl: "./header.component.html"
 })
 export class HeaderComponent {
+	// propriedades com sufixo $ são Observables
 	user$: Observable<User>;
 
 	constructor(private userServ: UserService, private router: Router) {

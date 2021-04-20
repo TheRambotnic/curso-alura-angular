@@ -7,6 +7,7 @@ const KEY = "authToken"
 })
 export class TokenService {
 	temToken(): boolean {
+		// double bang (!!) - boolean casting
 		return !!this.getToken();
 	}
 

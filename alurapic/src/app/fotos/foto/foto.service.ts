@@ -19,4 +19,13 @@ export class FotoService {
 		const parametros = new HttpParams().append("page", pagina.toString());
 		return this.http.get<Foto[]>(`${apiURL}/${username}/photos`, { params: parametros });
 	}
+
+	enviarFoto(descricao: string, permitirComentarios: boolean, arquivo: File) {
+		const formData = new FormData();
+		formData.append("description", descricao);
+		formData.append("allowComments", permitirComentarios ? "true" : "false");
+		formData.append("imageFile", arquivo);
+
+		return this.http.post(`${apiURL}/photos/upload`, formData);
+	}
 }

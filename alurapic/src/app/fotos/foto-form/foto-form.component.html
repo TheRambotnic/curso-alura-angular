@@ -1,1 +1,38 @@
-<p>foto-form works!</p>
+<div class="container">
+	<form [formGroup]="fotoForm" class="row" (submit)="enviar()" >
+		<div class="col-md-6 text-center">
+			<div class="form-group" *ngIf="!preview; else verPreview">
+				<button cliqueImediato type="button" (click)="fileInput.click()" class="btn btn-primary">
+					<i class="fa fa-image fa-4x align-middle"></i>
+				</button>
+
+				<input #fileInput formControlName="imagem" hidden (change)="getImg($event); handleFile($event);" type="file" accept="image/*" />
+				<ap-vmessage erro="Por favor, selecione uma imagem" *ngIf="fotoForm.get('imagem')?.errors?.required"></ap-vmessage>
+			</div>
+
+			<ng-template #verPreview>
+				<div class="text-center">
+					<ap-foto [url]="preview" title="Preview"></ap-foto>
+				</div>
+			</ng-template>
+		</div>
+
+		<div class="col-md-6">
+			<div class="form-group">
+				<textarea formControlName="descricao" class="form-control form-control-sm" placeholder="photo description"></textarea>
+				<ap-vmessage erro="Por favor, insira uma descrição" *ngIf="fotoForm.get('descricao')?.errors?.required"></ap-vmessage>
+				<ap-vmessage erro="Descrição deve ser menor que 300 caractéres" *ngIf="fotoForm.get('descricao')?.errors?.maxlength"></ap-vmessage>
+			</div>
+
+			<div class="form-group">
+				<label class="text-muted">
+					Permitir comentários
+					<input formControlName="permitirComentarios" type="checkbox" />
+				</label>
+			</div>
+
+			<button [disabled]="fotoForm.invalid" type="submit" class="btn btn-primary btn-block">Enviar</button>
+			<a class="btn btn-secondary btn-block">Cancelar</a>
+		</div>
+	</form>
+</div>

@@ -10,38 +10,35 @@ import { PlatformDetectorService } from "src/app/core/platform-detector/platform
 })
 export class SignInComponent implements OnInit {
 	loginForm: FormGroup;
-	// @ViewChild("userName") uNameInput: ElementRef<HTMLInputElement>;
-	@ViewChild("userName") uNameInput: any;
+	@ViewChild("userName") uNameInput: ElementRef<HTMLInputElement>;
 
 	constructor(
 		private fb: FormBuilder,
 		private authServ: AuthService,
 		private router: Router,
 		private platformDetectServ: PlatformDetectorService
-	) {
-		// inicializar para não dar problema no loginForm
-		this.loginForm = this.fb.group({});
-	}
+	) {}
 
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
 			userName: ["", Validators.required],
 			password: ["", Validators.required]
 		});
+		
+		this.platformDetectServ.naPlataformaBrowser() && this.uNameInput.nativeElement.focus();
 	}
 
 	login() {
 		const uName: string = this.loginForm.get("userName")?.value;
 		const pwd: string = this.loginForm.get("password")?.value;
-		this.authServ.autenticar(uName, pwd)
-			.subscribe(
-				() => this.router.navigate(["user", uName]),
-				err => {
-					console.error(err);
-					this.loginForm.reset();
-					this.platformDetectServ.naPlataformaBrowser() && this.uNameInput.nativeElement.focus();
-					alert("Usuário ou senha incorretos!");
-				}
-			);
+		this.authServ.autenticar(uName, pwd).subscribe(
+			() => this.router.navigate(["user", uName]),
+			err => {
+				console.error(err);
+				this.loginForm.reset();
+				this.platformDetectServ.naPlataformaBrowser() && this.uNameInput.nativeElement.focus();
+				alert("Usuário ou senha incorretos!");
+			}
+		);
 	}
 }
