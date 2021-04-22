@@ -1,18 +1,21 @@
 <!--
 	async pipe - conseguimos capturar a emissão do Observable
 	diretamente no template	sem necessidade do .subscribe()
+
+	*ngIf="(user$ | async) as user" - apenas exibir a div caso
+	o usuário estiver logado
 -->
 <footer class="mt-5" *ngIf="(user$ | async) as user">
 	<div class="fixed-bottom bg-white p-1">
 		<div class="container">
 			<div class="row text-center">
 				<div class="col-6">
-					<a [routerLink]="['']">
+					<a [routerLink]="['']" title="Home">
 						<i class="fa fa-home fa-2x"></i>
 					</a>
 				</div>
 				<div class="col-6">
-					<a [routerLink]="['foto', 'adicionar']">
+					<a [routerLink]="['foto', 'adicionar']" title="Adicionar nova foto">
 						<i class="fa fa-plus-circle fa-2x"></i>
 					</a>
 				</div>

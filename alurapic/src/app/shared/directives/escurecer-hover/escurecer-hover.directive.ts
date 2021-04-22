@@ -8,7 +8,7 @@ export class EscurecerHoverDirective {
 	@Input() brightness = "80%";
 
 	constructor(
-		private elem: ElementRef, // ElementRef - retorna referência de elemento do DOM
+		private elem: ElementRef, // ElementRef - retorna referência de elemento do DOM que está usando a diretiva
 		private render: Renderer2
 	) { }
 

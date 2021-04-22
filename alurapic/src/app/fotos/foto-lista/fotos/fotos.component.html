@@ -5,13 +5,19 @@
 <ol class="list-unstyled">
 	<li *ngFor="let cols of linhas" class="row no-gutters">
 		<div *ngFor="let ft of cols" class="col-4" apEscurecerHover brightness="80%">
-			<ap-card [titulo]="ft.description">
-				<ap-foto [url]="ft.url" [descricao]="ft.description"></ap-foto>
-				<div class="text-center p-1">
-					<i aria-hidden="true" class="fa fa-heart-o fa-1x mr-2"> {{ ft.likes }}</i>
-					<i aria-hidden="true" class="fa fa-comment-o fa-1x mr-2 ml-2"> {{ ft.comments }}</i>
-				</div>
-			</ap-card>
+			<!--
+				routerLink - dá continuidade a rota atual
+				para começar a partir da raiz, basta colocar uma / no primeiro parâmetro
+			-->
+			<a [routerLink]="['/foto', ft.id]">
+				<ap-card [titulo]="ft.description">
+					<ap-foto [url]="ft.url" [descricao]="ft.description"></ap-foto>
+					<div class="text-center p-1">
+						<i aria-hidden="true" class="fa fa-heart-o fa-1x mr-2"> {{ ft.likes }}</i>
+						<i aria-hidden="true" class="fa fa-comment-o fa-1x mr-2 ml-2"> {{ ft.comments }}</i>
+					</div>
+				</ap-card>
+			</a>
 		</div>
 	</li>
 </ol>

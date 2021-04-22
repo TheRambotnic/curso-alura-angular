@@ -5,9 +5,7 @@ import jwt_decode from "jwt-decode";
 import { TokenService } from "../token/token-service";
 import { User } from "./user.interface";
 
-@Injectable({
-	providedIn: "root"
-})
+@Injectable({ providedIn: "root" })
 export class UserService {
 	userReset: User = {
 		id: -1,
@@ -42,7 +40,7 @@ export class UserService {
 		return this.userSubj.asObservable();
 	}
 
-	getUserName() {
+	getUserName(): string {
 		return this.username;
 	}
 

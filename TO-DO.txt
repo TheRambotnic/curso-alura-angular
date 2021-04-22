@@ -1,0 +1,9 @@
+TO-DO:
+
+- foto.component.ts [:14 | :15]
+	remover undefined da tipagem e safe navigation operator do if na linha de baixo
+	APENAS quando o componente de remoção de fotos for implementado
+
+	No momento, existem fotos no banco de dados sem descrição OU arquivo enviado devido
+	ao um erro nos testes. Por isso, o uso do undefined na tipagem e o safe navigation
+	operator foram usados para corrigir esse erro temporário

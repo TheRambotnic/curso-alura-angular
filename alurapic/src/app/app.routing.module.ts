@@ -6,6 +6,7 @@ import { FotoListaComponent } from "./fotos/foto-lista/foto-lista.component";
 import { NotFoundComponent } from "./errors/not-found/not-found.component";
 import { FotoListaResolver } from "./fotos/foto-lista/foto-lista.resolver";
 import { AuthGuard } from "./core/auth/auth.guard";
+import { FotoDetalhesComponent } from "./fotos/foto-detalhes/foto-detalhes.component";
 
 const rotas: Routes = [
 	{
@@ -29,6 +30,10 @@ const rotas: Routes = [
 		path: "foto/adicionar",
 		component: FotoFormComponent,
 		canActivate: [AuthGuard]
+	},
+	{
+		path: "foto/:fotoId",
+		component: FotoDetalhesComponent
 	},
 	{
 		path: "**",

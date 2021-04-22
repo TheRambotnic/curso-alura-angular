@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
 
 import { CardModule } from "src/app/shared/components/card/card.module";
 import { EscurecerHoverModule } from "src/app/shared/directives/escurecer-hover/escurecer-hover.module";
@@ -22,7 +23,8 @@ import { PesquisaComponent } from "./pesquisa/pesquisa.component";
 		CommonModule, // sempre importar esse módulo em todos os componentes criados
 		FotoModule,
 		CardModule,
-		EscurecerHoverModule
+		EscurecerHoverModule,
+		RouterModule
 	]
 })
 export class FotoListaModule { }

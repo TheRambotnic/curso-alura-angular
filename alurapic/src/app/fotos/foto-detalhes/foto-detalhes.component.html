@@ -1,0 +1,16 @@
+<div class="bg-white border" *ngIf="(foto$ | async) as foto">
+	<div class="row">
+		<div class="col-lg-8">
+			<ap-foto [url]="foto.url" [descricao]="foto.description"></ap-foto>
+		</div>
+
+		<div class="col-lg-4 p-4">
+			<small>
+				<p class="text-left break-word">{{ foto.description }}</p>
+				<hr>
+			</small>
+
+			<ap-foto-comentarios [fotoId]="fotoId"></ap-foto-comentarios>
+		</div>
+	</div>
+</div>

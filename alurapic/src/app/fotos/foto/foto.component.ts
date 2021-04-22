@@ -11,9 +11,9 @@ export class FotoComponent {
 
 	// @Input() - permite receber parâmetros vindo do
 	// seletor HTML
-	@Input() descricao = "";
-	@Input() set url(url: string) {
-		if (!url.startsWith("data")) {
+	@Input() descricao: string | undefined = "";
+	@Input() set url(url: string | undefined) {
+		if (!url?.startsWith("data")) {
 			this._url = CLOUD + url;
 		}
 		else {
