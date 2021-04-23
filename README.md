@@ -1,9 +1,9 @@
 # INTRODUÇÃO
 Projeto de gerenciamento de fotos desenvolvido em [Angular](https://angular.io/) e [TypeScript](https://www.typescriptlang.org/) 
-durante os cursos da plataforma Alura com o professor [Flávio Henrique de Souza Almeida](http://cangaceirojavascript.com.br/sobre/)
+durante os cursos da plataforma [Alura](https://www.alura.com.br/) com o professor [Flávio Henrique de Souza Almeida](http://cangaceirojavascript.com.br/sobre/)
 
 ## A respeito dos commits...
-As mensagens de commit são feitas utilizando a nomenclatura `NomeDoCurso | P#C#A#`, onde:
+As mensagens de commit são feitas utilizando a nomenclatura `Angular Curso Alura | P#C#A#`, onde:
 * P# - parte do curso
 * C# - capítulo do curso
 * A# - atividade do capítulo
