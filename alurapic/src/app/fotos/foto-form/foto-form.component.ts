@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/core/user/user.service';
+import { NotificacoesService } from 'src/app/shared/components/notificacoes/notificacoes.service';
 import { FotoService } from '../foto/foto.service';
 
 @Component({
@@ -16,7 +18,9 @@ export class FotoFormComponent implements OnInit {
 	constructor(
 		private fb: FormBuilder,
 		private fotoServ: FotoService,
-		private router: Router
+		private router: Router,
+		private notifServ: NotificacoesService,
+		private userServ: UserService
 	) { }
 
 	ngOnInit(): void {
@@ -36,14 +40,9 @@ export class FotoFormComponent implements OnInit {
 		});
 	}
 
-	// função auxiliar para não ocorrer erro de Property 'files' does not exist on type 'EventTarget'.
-	// usada em foto-form.component.html no event binding (change) de <input type="file">
-	getImg(e: Event) {
-		const target = e.target as HTMLInputElement;
-		this.arquivoIMG = target?.files as any; // tipar com FileList dá erro
-	}
-
 	handleFile(e: Event) {
+		// variáveis auxiliares para não ocorrer erro de Property 'files' does not exist on type 'EventTarget'.
+		// usada em foto-form.component.html no event binding (change) de <input type="file">
 		const target = e.target as HTMLInputElement;
 		const file = target?.files as any;
 		this.arquivoIMG = file[0];
@@ -57,7 +56,13 @@ export class FotoFormComponent implements OnInit {
 		const descricao = this.fotoForm.get("descricao")?.value;
 		const permitirComentarios = this.fotoForm.get("permitirComentarios")?.value;
 
-		this.fotoServ.enviarFoto(descricao, permitirComentarios, this.arquivoIMG[0])
-			.subscribe(() => this.router.navigate([""]));
+		this.fotoServ
+			.enviarFoto(descricao, permitirComentarios, this.arquivoIMG)
+			.subscribe(
+				() => {
+					this.notifServ.success("Foto enviada com sucesso!", true);
+					this.router.navigate(["/user", this.userServ.getUserName()]);
+				}
+			);
 	}
 }

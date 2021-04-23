@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { NotificacoesModule } from "../shared/components/notificacoes/notificacoes.module";
 import { RequisicaoInterceptor } from "./auth/requisicao.interceptor";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
@@ -17,7 +18,8 @@ import { HeaderComponent } from "./header/header.component";
 	],
 	imports: [
 		CommonModule,
-		RouterModule
+		RouterModule,
+		NotificacoesModule
 	],
 	providers: [{
 		provide: HTTP_INTERCEPTORS,

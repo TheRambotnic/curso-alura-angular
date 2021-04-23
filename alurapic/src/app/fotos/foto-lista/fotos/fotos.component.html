@@ -6,7 +6,7 @@
 	<li *ngFor="let cols of linhas" class="row no-gutters">
 		<div *ngFor="let ft of cols" class="col-4" apEscurecerHover brightness="80%">
 			<!--
-				routerLink - dá continuidade a rota atual
+				routerLink - dá continuidade a rota atual (importar RouterModule)
 				para começar a partir da raiz, basta colocar uma / no primeiro parâmetro
 			-->
 			<a [routerLink]="['/foto', ft.id]">

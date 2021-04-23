@@ -6,7 +6,7 @@
 					<i class="fa fa-image fa-4x align-middle"></i>
 				</button>
 
-				<input #fileInput formControlName="imagem" hidden (change)="getImg($event); handleFile($event);" type="file" accept="image/*" />
+				<input #fileInput formControlName="imagem" hidden (change)="handleFile($event)" type="file" accept="image/*" />
 				<ap-vmessage erro="Por favor, selecione uma imagem" *ngIf="fotoForm.get('imagem')?.errors?.required"></ap-vmessage>
 			</div>
 
@@ -32,7 +32,7 @@
 			</div>
 
 			<button [disabled]="fotoForm.invalid" type="submit" class="btn btn-primary btn-block">Enviar</button>
-			<a class="btn btn-secondary btn-block">Cancelar</a>
+			<a [routerLink]="['']" class="btn btn-secondary btn-block">Cancelar</a>
 		</div>
 	</form>
 </div>

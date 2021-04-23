@@ -36,8 +36,12 @@ const rotas: Routes = [
 		component: FotoDetalhesComponent
 	},
 	{
-		path: "**",
+		path: "not-found",
 		component: NotFoundComponent
+	},
+	{
+		path: "**",
+		redirectTo: "not-found"
 	}
 ];
 

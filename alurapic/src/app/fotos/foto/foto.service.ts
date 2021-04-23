@@ -1,14 +1,15 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { of, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
+
 import { FotoComentario } from "./foto-comentarios";
 import { Foto } from "./foto.interface";
+import { environment } from "../../../environments/environment";
 
-const apiURL = "http://localhost:3000";
+const apiURL = environment.API_URL;
 
-// previne o erro de 'No providers for Service'
-@Injectable({
-	providedIn: "root" // 'root' - qualquer componente da minha app terá esse serviço disponível
-})
+@Injectable({ providedIn: "root" })
 export class FotoService {
 	constructor(private http: HttpClient) { }
 
@@ -30,6 +31,10 @@ export class FotoService {
 		return this.http.post(`${apiURL}/photos/upload`, formData);
 	}
 
+	removerFoto(fotoId: number) {
+		return this.http.delete(`${apiURL}/photos/${fotoId}`);
+	}
+
 	listarPorId(fotoId: number) {
 		return this.http.get<Foto>(`${apiURL}/photos/${fotoId}`);
 	}
@@ -40,5 +45,15 @@ export class FotoService {
 
 	adicionarComentario(fotoId: number, texto: string) {
 		return this.http.post(`${apiURL}/photos/${fotoId}/comments`, {commentText: texto});
+	}
+
+	curtirFoto(fotoId: number) {
+		return this.http
+			.post(`${apiURL}/photos/${fotoId}/like`, {}, {observe: "response"})
+			.pipe(map(res => true))
+			.pipe(catchError(err => {
+				// of() - cria um novo Observable
+				return err.status == "304" ? of(false) : throwError(err);
+			}));
 	}
 }

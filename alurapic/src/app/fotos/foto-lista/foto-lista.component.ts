@@ -24,8 +24,10 @@ export class FotoListaComponent implements OnInit {
 	// executar lógica do componente apenas quando o app instanciar a classe
 	// necessário implementar interface 'OnInit'
 	ngOnInit(): void {
-		this.username = this.activatedRoute.snapshot.params.userName;
-		this.fotos = this.activatedRoute.snapshot.data["fotos"];
+		this.activatedRoute.params.subscribe(params => {
+			this.username = params.userName;
+			this.fotos = this.activatedRoute.snapshot.data["fotos"];
+		});
 	}
 
 	carregar() {

@@ -5,12 +5,22 @@
 		</div>
 
 		<div class="col-lg-4 p-4">
-			<small>
+			<div>
 				<p class="text-left break-word">{{ foto.description }}</p>
-				<hr>
-			</small>
+				
+				<div class="text-left break-word">
+					<span mostrarSeLogado style="font-size: 1.3em;"><i (click)="curtir(foto)" style="font-size: 1.3em;" class="fa fa-heart-o mr-2 pull-left"></i> {{ foto.likes }}</span>
+					<span style="font-size: 1.3em;" class="ml-3"><i style="font-size: 1.3em;" class="fa fa-comment-o mr-1"></i> {{ foto.comments }}</span>
+					<i fotoDonoApenas [foto]="foto" (click)="remover()" class="fa fa-trash-o fa-2x pull-right"></i>
+				</div>
 
-			<ap-foto-comentarios [fotoId]="fotoId"></ap-foto-comentarios>
+				<hr/>
+			</div>
+
+			<ap-foto-comentarios *ngIf="foto.allowComments; else warning" [fotoId]="fotoId"></ap-foto-comentarios>
+			<ng-template #warning>
+				<p style="color: red;">Usuário desabilitou comentários para essa foto.</p>
+			</ng-template>
 		</div>
 	</div>
 </div>
