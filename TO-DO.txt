@@ -1,5 +1,6 @@
 TO-DO:
 
+* FEITO *
 - foto.component.ts [:14 | :15]
 	remover undefined da tipagem e safe navigation operator do if na linha de baixo
 	APENAS quando o componente de remoção de fotos for implementado
