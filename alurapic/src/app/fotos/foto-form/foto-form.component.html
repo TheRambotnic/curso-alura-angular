@@ -31,8 +31,13 @@
 				</label>
 			</div>
 
-			<button [disabled]="fotoForm.invalid" type="submit" class="btn btn-primary btn-block">Enviar</button>
-			<a [routerLink]="['']" class="btn btn-secondary btn-block">Cancelar</a>
+			<div *ngIf="!percentual; else uploadPercent">
+				<button [disabled]="fotoForm.invalid" type="submit" class="btn btn-primary btn-block">Enviar</button>
+				<a [routerLink]="['']" class="btn btn-secondary btn-block">Cancelar</a>
+			</div>
+			<ng-template #uploadPercent>
+				<div class="text-center display-4">Enviando {{ percentual }}%</div>
+			</ng-template>
 		</div>
 	</form>
 </div>

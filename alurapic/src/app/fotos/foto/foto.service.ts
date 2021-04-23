@@ -28,7 +28,14 @@ export class FotoService {
 		formData.append("allowComments", permitirComentarios ? "true" : "false"); // converter bool para string
 		formData.append("imageFile", arquivo);
 
-		return this.http.post(`${apiURL}/photos/upload`, formData);
+		return this.http.post(
+			`${apiURL}/photos/upload`,
+			formData,
+			{
+				observe: "events",
+				reportProgress: true
+			}
+		);
 	}
 
 	removerFoto(fotoId: number) {

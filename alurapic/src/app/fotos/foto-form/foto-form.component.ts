@@ -1,6 +1,9 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
+
 import { UserService } from 'src/app/core/user/user.service';
 import { NotificacoesService } from 'src/app/shared/components/notificacoes/notificacoes.service';
 import { FotoService } from '../foto/foto.service';
@@ -14,6 +17,7 @@ export class FotoFormComponent implements OnInit {
 	fotoForm: FormGroup;
 	arquivoIMG: any; // tipar como File dá erro
 	preview: any;
+	percentual: number = 0;
 
 	constructor(
 		private fb: FormBuilder,
@@ -58,10 +62,24 @@ export class FotoFormComponent implements OnInit {
 
 		this.fotoServ
 			.enviarFoto(descricao, permitirComentarios, this.arquivoIMG)
+			.pipe(finalize(() => {
+				// enviar usuário para timeline após a operação terminar
+				this.router.navigate(["/user", this.userServ.getUserName()]);
+			}))
 			.subscribe(
-				() => {
-					this.notifServ.success("Foto enviada com sucesso!", true);
-					this.router.navigate(["/user", this.userServ.getUserName()]);
+				(event: HttpEvent<any>) => {
+					if (event.type == HttpEventType.UploadProgress) {
+						// event.total - não funciona
+						// this.percentual = Math.round(100 * event.loaded / event.total);
+						this.percentual = Math.round(100 * event.loaded / 10);
+					}
+					else if (event.type == HttpEventType.Response) {
+						this.notifServ.success("Foto enviada com sucesso!", true);
+					}
+				},
+				err => {
+					console.log(err);
+					this.notifServ.danger("Erro de upload", true);
 				}
 			);
 	}

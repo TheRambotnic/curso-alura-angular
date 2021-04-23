@@ -14,11 +14,17 @@ const rotas: Routes = [
 		children: [
 			{
 				path: "",
-				component: SignInComponent
+				component: SignInComponent,
+				data: {
+					title: "Entrar"
+				}
 			},
 			{
 				path: "signup",
-				component: SignUpComponent
+				component: SignUpComponent,
+				data: {
+					title: "Registrar"
+				}
 			}
 		]
 	}

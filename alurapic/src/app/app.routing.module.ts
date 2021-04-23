@@ -24,20 +24,32 @@ const rotas: Routes = [
 		resolve: {
 			// propriedade : Resolver
 			fotos: FotoListaResolver
+		},
+		data: {
+			title: "Timeline"
 		}
 	},
 	{
 		path: "foto/adicionar",
 		component: FotoFormComponent,
-		canActivate: [AuthGuard]
+		canActivate: [AuthGuard],
+		data: {
+			title: "Upload de fotos"
+		}
 	},
 	{
 		path: "foto/:fotoId",
-		component: FotoDetalhesComponent
+		component: FotoDetalhesComponent,
+		data: {
+			title: "Detalhe da foto"
+		}
 	},
 	{
 		path: "not-found",
-		component: NotFoundComponent
+		component: NotFoundComponent,
+		data: {
+			title: "Página não encontrada"
+		}
 	},
 	{
 		path: "**",
