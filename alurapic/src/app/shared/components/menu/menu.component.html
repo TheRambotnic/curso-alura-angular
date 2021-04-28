@@ -1,0 +1,10 @@
+<div [ngClass]="{ 'ativo': aberto }">
+	<div class="menu-bar">
+		<i class="fa fa-window-close" tabindex="0" (keyup.space)="toggle()" (click)="toggle()"></i>
+
+		<!-- ng-content - tudo que vem dentro do ap-menu em header.component.html -->
+		<ng-content></ng-content>
+	</div>
+
+	<div class="overlay" (click)="toggle()"></div>
+</div>

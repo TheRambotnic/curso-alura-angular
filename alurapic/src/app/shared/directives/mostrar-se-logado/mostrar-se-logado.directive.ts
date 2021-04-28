@@ -5,6 +5,8 @@ import { UserService } from "src/app/core/user/user.service";
 	selector: "[mostrarSeLogado]"
 })
 export class MostrarSeLogadoDirective implements OnInit {
+	displayAtual: string;
+
 	constructor(
 		private elem: ElementRef<any>,
 		private render: Renderer2,
@@ -12,8 +14,15 @@ export class MostrarSeLogadoDirective implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		if (!this.userServ.estaLogado()) {
-			this.render.setStyle(this.elem.nativeElement, "display", "none");
-		}
+		this.displayAtual = getComputedStyle(this.elem.nativeElement).display;
+		this.userServ.getUser().subscribe(user => {
+			if (user) {
+				this.render.setStyle(this.elem.nativeElement, "display", this.displayAtual);
+			}
+			else {
+				this.displayAtual = getComputedStyle(this.elem.nativeElement).display;
+				this.render.setStyle(this.elem.nativeElement, "display", "none");
+			}
+		});
 	}
 }
