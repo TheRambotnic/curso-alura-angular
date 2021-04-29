@@ -26,7 +26,7 @@ export class SignInComponent implements OnInit {
 			password: ["", Validators.required]
 		});
 		
-		this.platformDetectServ.naPlataformaBrowser() && this.uNameInput.nativeElement.focus();
+		this.platformDetectServ.naPlataformaBrowser() && this.uNameInput?.nativeElement.focus();
 	}
 
 	login() {
@@ -37,7 +37,7 @@ export class SignInComponent implements OnInit {
 			err => {
 				console.error(err);
 				this.loginForm.reset();
-				this.platformDetectServ.naPlataformaBrowser() && this.uNameInput.nativeElement.focus();
+				this.platformDetectServ.naPlataformaBrowser() && this.uNameInput?.nativeElement.focus();
 				alert("Usuário ou senha incorretos!");
 			}
 		);

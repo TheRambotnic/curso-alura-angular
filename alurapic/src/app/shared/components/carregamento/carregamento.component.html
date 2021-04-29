@@ -1,1 +1,8 @@
-<hr [ngClass]="carregamento$ | async"/>
+<!-- gambiarra de ng-template pois o async pipe tava bugando o [ngClass] -->
+<div *ngIf="(carregamento$ | async) == 'carregando'; then carregando; else parado"></div>
+<ng-template #carregando>
+	<hr class="carregando"/>
+</ng-template>
+<ng-template #parado>
+	<hr class="parado"/>
+</ng-template>

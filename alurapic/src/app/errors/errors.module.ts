@@ -10,9 +10,9 @@ import { GlobalErrorHandler } from './global-error-handler/global-error-handler'
 	imports: [
 		CommonModule
 	],
-	// providers: [{
-	// 	provide: ErrorHandler,
-	// 	useClass: GlobalErrorHandler
-	// }]
+	providers: [{
+		provide: ErrorHandler,
+		useClass: GlobalErrorHandler
+	}]
 })
 export class ErrorsModule { }

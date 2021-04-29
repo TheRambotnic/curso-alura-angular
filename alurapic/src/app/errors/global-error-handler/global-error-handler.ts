@@ -1,8 +1,53 @@
-import { ErrorHandler } from "@angular/core";
+import { LocationStrategy, PathLocationStrategy } from "@angular/common";
+import { ErrorHandler, Injectable, Injector } from "@angular/core";
+import { UserService } from "src/app/core/user/user.service";
+import * as StackTrace from "stacktrace-js";
+import { ServerLogService } from "./server-log.service";
 
+// não precisa do providedIn pois a classe está no escopo do ErrorsModule
+@Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
+	constructor(private injector: Injector) {}
+
 	handleError(error: any): void {
-		console.log("Passei pelo handler");
-		throw error;
+		// injeção de dependência por demanda (sem ser no constructor())
+		const location = this.injector.get(LocationStrategy);
+		const userServ = this.injector.get(UserService);
+		const serverLogServ = this.injector.get(ServerLogService);
+		
+		// pega a rota de onde ocorreu o erro
+		const url = location instanceof PathLocationStrategy ? location.path() : "";
+
+		// parâmetro 'error' nem sempre é uma instância de error
+		// converter para string caso não for
+		const message = error.message ? error.message : error.toString();
+		StackTrace
+			.fromError(error) // passa instância do erro
+			.then(stackFrame => {
+				// stackFrame retorna um array
+				const stackAsString = stackFrame
+					.map(sf => sf.toString())
+					.join("\n\n");
+				
+				console.error(message);
+				console.log(stackAsString);
+
+				// manda erro para o servidor
+				serverLogServ.log({
+					message,
+					url,
+					userName: userServ.getUserName(),
+					stack: stackAsString
+				})
+				.subscribe(
+					() => {
+						console.log("Erro logado no server!");
+					},
+					err => {
+						console.log(err);
+						console.log("Falha ao mandar erro para o server");
+					}
+				);
+			});
 	}
 }
