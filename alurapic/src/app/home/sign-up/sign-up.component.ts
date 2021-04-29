@@ -66,11 +66,13 @@ export class SignUpComponent implements OnInit {
 	}
 
 	registrar() {
-		// getRawValue() - devolve um objeto com todos os campos e valores do FormGroup
-		const novoUser: NewUser = this.signupForm.getRawValue();
-		this.signupServ.registrar(novoUser).subscribe(
-			() => this.router.navigate([""]),
-			err => console.log(err)
-		);
+		if (this.signupForm.valid && !this.signupForm.pending) {
+			// getRawValue() - devolve um objeto com todos os campos e valores do FormGroup
+			const novoUser: NewUser = this.signupForm.getRawValue();
+			this.signupServ.registrar(novoUser).subscribe(
+				() => this.router.navigate([""]),
+				err => console.log(err)
+			);
+		}
 	}
 }

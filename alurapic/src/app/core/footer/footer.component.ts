@@ -10,7 +10,7 @@ import { UserService } from "../user/user.service";
 })
 export class FooterComponent implements OnInit {
 	// propriedades com sufixo $ são Observables
-	user$: Observable<User>;
+	user$: Observable<User | null>;
 
 	constructor(private userServ: UserService) {}
 

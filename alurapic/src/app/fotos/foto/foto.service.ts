@@ -19,7 +19,7 @@ export class FotoService {
 
 	listarDeUsuarioPaginada(username: string, pagina: number) {
 		const parametros = new HttpParams().append("page", pagina.toString());
-		return this.http.get<Foto[]>(`${apiURL}/${username}/photosx`, { params: parametros });
+		return this.http.get<Foto[]>(`${apiURL}/${username}/photos`, { params: parametros });
 	}
 
 	enviarFoto(descricao: string, permitirComentarios: boolean, arquivo: File) {

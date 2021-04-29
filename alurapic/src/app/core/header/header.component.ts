@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
@@ -9,11 +9,13 @@ import { UserService } from "../user/user.service";
 	selector: "ap-header",
 	templateUrl: "./header.component.html"
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 	// propriedades com sufixo $ são Observables
-	user$: Observable<User>;
+	user$: Observable<User | null>;
 
-	constructor(private userServ: UserService, private router: Router) {
+	constructor(private userServ: UserService, private router: Router) {}
+
+	ngOnInit(): void {
 		this.user$ = this.userServ.getUser();
 	}
 

@@ -7,6 +7,7 @@ import { NotFoundComponent } from "./errors/not-found/not-found.component";
 import { FotoListaResolver } from "./fotos/foto-lista/foto-lista.resolver";
 import { AuthGuard } from "./core/auth/auth.guard";
 import { FotoDetalhesComponent } from "./fotos/foto-detalhes/foto-detalhes.component";
+import { GlobalErrorComponent } from "./errors/global-error/global-error.component";
 
 const rotas: Routes = [
 	{
@@ -49,6 +50,13 @@ const rotas: Routes = [
 		component: NotFoundComponent,
 		data: {
 			title: "Página não encontrada"
+		}
+	},
+	{
+		path: "error",
+		component: GlobalErrorComponent,
+		data: {
+			title: "Erro"
 		}
 	},
 	{

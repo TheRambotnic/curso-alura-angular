@@ -7,13 +7,7 @@ import { User } from "./user.interface";
 
 @Injectable({ providedIn: "root" })
 export class UserService {
-	userReset: User = {
-		id: -1,
-		name: "",
-		email: ""
-	};
-
-	userSubj = new BehaviorSubject<User>(this.userReset);
+	userSubj = new BehaviorSubject<User | null>(null);
 	username: string;
 
 	constructor(private tokenServ: TokenService) {
@@ -29,14 +23,14 @@ export class UserService {
 
 	logout(): void {
 		this.tokenServ.removerToken();
-		this.userSubj.next(this.userReset);
+		this.userSubj.next(null);
 	}
 
 	estaLogado(): boolean {
 		return this.tokenServ.temToken();
 	}
 
-	getUser(): Observable<User> {
+	getUser(): Observable<User | null> {
 		return this.userSubj.asObservable();
 	}
 
