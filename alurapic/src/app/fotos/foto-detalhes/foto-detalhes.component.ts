@@ -25,17 +25,21 @@ export class FotoDetalhesComponent implements OnInit {
 	ngOnInit(): void {
 		this.fotoId = this.rotaActv.snapshot.params["fotoId"]; // pega parâmetro passado na rota
 		this.foto$ = this.fotoServ.listarPorId(this.fotoId);
-		this.foto$.subscribe(() => {}, err => {
-			console.log(err);
-			this.router.navigate(["not-found"]);
-		});
+		this.foto$.subscribe(
+			() => {},
+			err => {
+				console.log(err);
+				this.router.navigate(["not-found"]);
+			}
+		);
 	}
 
 	remover() {
 		this.fotoServ.removerFoto(this.fotoId).subscribe(
 			() => {
 				this.notifServ.success("Foto removida com sucesso!", true);
-				this.router.navigate(["/user", this.userServ.getUserName()]);
+				// replaceUrl - destrói a rota anterior no history API do navegador
+				this.router.navigate(["/user", this.userServ.getUserName()], {replaceUrl: true});
 			},
 			err => {
 				console.log(err);

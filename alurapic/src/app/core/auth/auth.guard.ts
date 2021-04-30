@@ -12,7 +12,15 @@ export class AuthGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot, estado: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		if (!this.userServ.estaLogado()) {
-			this.router.navigate([""]);
+			this.router.navigate(
+				[""],
+				{
+					// pega rota que eu tentei acessar anteriormente
+					queryParams: {
+						fromUrl: estado.url
+					}
+				}
+			);
 			return false;
 		}
 

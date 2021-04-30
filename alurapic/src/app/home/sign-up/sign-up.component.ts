@@ -1,12 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { PlatformDetectorService } from "src/app/core/platform-detector/platform-detector.service";
 
+import { PlatformDetectorService } from "src/app/core/platform-detector/platform-detector.service";
 import { caixaBaixaValidator } from "src/app/shared/validators/caixa-baixa.validator";
 import { NewUser } from "./new-user.interface";
 import { SignUpService } from "./sign-up.service";
 import { UsernameNaoExisteValidatorService } from "./username-nao-existe.validator.service";
+import { usernamePasswordValidator } from "./username-password.validator";
 
 @Component({
 	templateUrl: "./sign-up.component.html",
@@ -60,6 +61,9 @@ export class SignUpComponent implements OnInit {
 					Validators.maxLength(16)
 				])
 			]
+		},
+		{
+			validator: usernamePasswordValidator
 		});
 
 		this.platformDetector.naPlataformaBrowser() && this.inputEmail?.nativeElement.focus();
